@@ -51,4 +51,13 @@ Cette section contient des rappels généraux. Les difficultés personnelles ser
 
 ## Difficultés enregistrées
 
-_Aucune difficulté enregistrée pour le moment. Ajoute la première dès que tu bloques sur un exercice._
+### Mise en place de FastAPI — 16 octobre 2026
+
+- **Difficulté :** Le backend ne se lançait pas avec `uvicorn app.main:app --reload`.
+- **Message d'erreur :** `Attribute "app" not found in module "app.main"`.
+- **Cause identifiée :** Le fichier `backend/app/main.py` était vide. Il ne contenait pas l'objet FastAPI nommé `app`.
+- **Indice :** La commande Uvicorn est composée de deux parties : `app.main` désigne le fichier Python et `:app` désigne la variable FastAPI à l'intérieur de ce fichier.
+- **Correction appliquée :** Création de `FastAPI()` dans `main.py`, ajout des routes `/api/health` et `/api/produits`, et configuration CORS pour React.
+- **Ce que je retiens :** Pour lancer `uvicorn app.main:app`, il faut avoir un fichier `app/main.py` contenant une variable appelée `app`.
+
+
