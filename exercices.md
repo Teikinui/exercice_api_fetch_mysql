@@ -4,7 +4,7 @@
 
 Construire progressivement une application React qui communique avec une API REST, elle-même reliée à une base de données MySQL.
 
-> Architecture cible : `React (frontend) → API Node/Express (backend) → MySQL (base de données)`
+> Architecture cible : `React (frontend) → API FastAPI (backend Python) → MySQL (base de données)`
 >
 > React ne doit pas se connecter directement à MySQL. Le frontend appelle l'API, et l'API dialogue avec MySQL.
 
@@ -93,27 +93,29 @@ Ajoute un bouton sur chaque utilisateur. Au clic, affiche ses informations déta
 
 ## Niveau 3 — Créer un backend API
 
-### Exercice 5 — Première API Express
+### Exercice 5 — Première API FastAPI
 
-Crée un dossier `server` séparé du frontend React. Initialise un serveur Node.js avec Express.
+Crée un dossier `backend` séparé du frontend React. Initialise une API Python avec FastAPI et Uvicorn.
 
 Crée les routes suivantes :
 
 - `GET /api/health` → retourne `{ "message": "API opérationnelle" }`
 - `GET /api/produits` → retourne une liste de produits en mémoire
-- `GET /api/produits/:id` → retourne un seul produit
+- `GET /api/produits/{id}` → retourne un seul produit
 
-**Compétences :** serveur HTTP, routes, paramètres d'URL, JSON.
+**Compétences :** serveur HTTP, routes FastAPI, paramètres de chemin, JSON, documentation automatique.
 
 **Comment aborder :**
 
-1. Initialise le projet backend.
-2. Installe Express et un outil de redémarrage automatique.
-3. Active la lecture du JSON et le CORS.
-4. Crée les routes une par une.
-5. Teste chaque route avec un outil API avant de connecter React.
+1. Crée un environnement virtuel Python.
+2. Installe `fastapi` et `uvicorn`.
+3. Crée un fichier `main.py`.
+4. Déclare les routes avec les décorateurs FastAPI.
+5. Active le CORS pour autoriser React.
+6. Lance le serveur avec Uvicorn.
+7. Teste les routes dans `/docs` avant de connecter React.
 
-**Fonctions et outils utiles :** `express()`, `app.get()`, `res.json()`, `req.params`.
+**Fonctions et outils utiles :** `FastAPI()`, `@app.get()`, `Path`, `HTTPException`, `uvicorn`, `/docs`.
 
 ### Exercice 6 — Connecter React à ton API
 
