@@ -12,10 +12,72 @@ Construire progressivement une application React qui communique avec une API RES
 
 - JavaScript : variables, fonctions, tableaux, objets, `map`, `filter`, `async/await`
 - React avec Vite
+- Docker et Docker Compose
 - Python 3, environnement virtuel et pip
 - MySQL
 - Un outil de test API : navigateur, Bruno, Postman ou Insomnia
 - Git conseillé
+
+---
+
+## Niveau 0 — Préparer l'environnement du projet
+
+### Exercice 0 — Dockeriser MySQL et FastAPI
+
+Prépare une structure de projet reproductible avant de commencer les fonctionnalités :
+
+```text
+projet/
+├── frontend/          # React + Vite
+├── backend/           # FastAPI
+│   ├── app/
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── .env.example
+├── docker-compose.yml
+├── .env.example
+├── .gitignore
+└── README.md
+```
+
+Utilise Docker Compose pour lancer :
+
+- un conteneur `mysql` avec un volume persistant ;
+- un conteneur `api` qui exécute FastAPI avec Uvicorn ;
+- un réseau commun entre les services ;
+- un healthcheck MySQL ;
+- des variables d'environnement pour les identifiants et les ports.
+
+Le backend doit être accessible depuis le navigateur sur `http://localhost:8000` et sa documentation sur `http://localhost:8000/docs`. Le frontend React doit pouvoir appeler l'API grâce à une configuration CORS explicite.
+
+**Compétences :** Dockerfile, Docker Compose, volumes, réseaux, variables d'environnement, CORS, démarrage de services.
+
+**Comment aborder :**
+
+1. Crée le `Dockerfile` du backend Python.
+2. Crée `docker-compose.yml` avec les services `api` et `mysql`.
+3. Ajoute un volume nommé pour conserver les données MySQL.
+4. Crée `.env.example` sans secret réel et ajoute `.env` au `.gitignore`.
+5. Configure `DATABASE_URL` pour que FastAPI utilise le nom du service `mysql`, pas `localhost`.
+6. Ajoute un healthcheck et vérifie les logs avec `docker compose logs`.
+7. Lance, arrête et relance les conteneurs pour vérifier la persistance des données.
+8. Teste `/docs` et un appel `fetch` depuis React.
+
+**Fonctions et outils utiles :** `Dockerfile`, `docker compose up`, `docker compose down`, `docker compose logs`, `depends_on`, `healthcheck`, volume MySQL, CORS FastAPI.
+
+### Exercice 0 bis — Configuration et qualité du projet
+
+Ajoute les éléments indispensables suivants :
+
+- `.env.example` documentant les variables nécessaires ;
+- `.gitignore` pour `.env`, `__pycache__`, `node_modules` et les données locales ;
+- `README.md` avec les commandes d'installation et de démarrage ;
+- scripts ou commandes séparées pour le développement et la production ;
+- formatage et vérification Python avec Ruff ;
+- tests backend avec Pytest et `TestClient` ;
+- tests frontend avec Vitest lorsque l'interface sera créée.
+
+**Critère de validation :** une nouvelle personne doit pouvoir cloner le projet, copier `.env.example` vers `.env`, lancer `docker compose up --build` et accéder à l'API sans modifier le code.
 
 ---
 
