@@ -38,6 +38,9 @@ Cette section contient des rappels généraux. Les difficultés personnelles ser
 - Une requête réseau doit gérer au minimum le chargement, le succès et l'erreur.
 - `response.json()` est asynchrone et doit être attendu avec `await`.
 - Une API est un intermédiaire entre React et la base de données.
+- FastAPI fournit une documentation interactive automatiquement sur `/docs`.
+- Dans FastAPI, les paramètres de chemin s'écrivent généralement avec `{id}` dans la route.
+- Les modèles Pydantic servent à valider les données reçues et retournées.
 
 ### MySQL
 

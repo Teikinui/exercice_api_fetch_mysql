@@ -12,7 +12,7 @@ Construire progressivement une application React qui communique avec une API RES
 
 - JavaScript : variables, fonctions, tableaux, objets, `map`, `filter`, `async/await`
 - React avec Vite
-- Node.js et npm
+- Python 3, environnement virtuel et pip
 - MySQL
 - Un outil de test API : navigateur, Bruno, Postman ou Insomnia
 - Git conseillé
@@ -162,23 +162,24 @@ Insère au moins cinq produits de test.
 
 **Fonctions et outils utiles :** `CREATE DATABASE`, `CREATE TABLE`, `INSERT INTO`, `SELECT`.
 
-### Exercice 8 — Relier Express à MySQL
+### Exercice 8 — Relier FastAPI à MySQL
 
-Dans le backend, utilise un driver MySQL pour créer une connexion ou un pool de connexions.
+Dans le backend Python, utilise SQLAlchemy avec un driver MySQL pour créer une connexion ou un pool de connexions.
 
 Modifie `GET /api/produits` afin de lire les produits depuis MySQL.
 
-**Compétences :** variables d'environnement, requêtes SQL côté serveur, pool de connexions.
+**Compétences :** variables d'environnement, SQLAlchemy, modèles, sessions de base de données, requêtes SQL côté serveur.
 
 **Comment aborder :**
 
-1. Installe le driver MySQL côté backend.
+1. Installe `sqlalchemy`, un driver MySQL et `python-dotenv`.
 2. Place les identifiants dans un fichier `.env` non versionné.
-3. Crée un module de connexion réutilisable.
-4. Exécute `SELECT * FROM produits` dans la route.
-5. Ferme ou réutilise correctement les connexions.
+3. Crée un module de connexion et une session réutilisable.
+4. Crée le modèle SQLAlchemy correspondant à `produits`.
+5. Exécute la lecture dans la route FastAPI.
+6. Ferme correctement chaque session.
 
-**Fonctions et outils utiles :** `process.env`, `dotenv`, pool MySQL, requêtes paramétrées.
+**Fonctions et outils utiles :** `create_engine`, `sessionmaker`, `Session`, `Depends`, SQLAlchemy, requêtes paramétrées.
 
 ### Exercice 9 — CRUD complet
 
@@ -268,7 +269,7 @@ Termine par une documentation du projet avec installation, variables d'environne
 5. Protège les opérations d'écriture.
 6. Documente et teste toutes les routes.
 
-**Fonctions et outils utiles :** middleware Express, hash de mot de passe, token, variables d'environnement, tests API.
+**Fonctions et outils utiles :** dépendances FastAPI, middleware, hash de mot de passe, token, variables d'environnement, tests API.
 
 ---
 
