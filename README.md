@@ -57,22 +57,187 @@ node --version
 python --version
 ```
 
-## Installation
+## Initialiser le projet pas à pas
 
-Cloner le projet puis entrer dans son dossier :
+Les commandes suivantes sont prévues pour Linux ou WSL. Ouvre un terminal dans le dossier où tu veux créer le projet.
+
+### 1. Créer le dossier principal
 
 ```bash
-git clone <URL_DU_DEPOT>
-cd <NOM_DU_PROJET>
+mkdir projet-react-fastapi
+cd projet-react-fastapi
 ```
 
-Créer le fichier de configuration local à partir de l'exemple :
+Initialiser Git :
+
+```bash
+git init
+```
+
+Créer les dossiers de travail :
+
+```bash
+mkdir frontend backend
+mkdir -p backend/app backend/tests
+```
+
+### 2. Créer le frontend React avec Vite
+
+Depuis le dossier principal :
+
+```bash
+npm create vite@latest frontend -- --template react
+```
+
+Entrer dans le frontend et installer les dépendances :
+
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+Tester le frontend :
+
+```bash
+cd frontend
+npm run dev
+```
+
+Ouvre ensuite l'adresse affichée dans le terminal, généralement `http://localhost:5173`.
+
+Pour arrêter le serveur, utilise `Ctrl+C`.
+
+### 3. Préparer le backend FastAPI
+
+Depuis le dossier principal :
+
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Installer FastAPI et les outils de développement :
+
+```bash
+python -m pip install fastapi uvicorn sqlalchemy pymysql python-dotenv pydantic-settings pytest httpx ruff
+```
+
+Enregistrer les dépendances installées :
+
+```bash
+python -m pip freeze > requirements.txt
+```
+
+Créer un premier fichier Python :
+
+```bash
+touch app/__init__.py app/main.py
+```
+
+Lancer le backend :
+
+```bash
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+La documentation sera disponible sur `http://localhost:8000/docs`.
+
+Pour quitter l'environnement Python :
+
+```bash
+deactivate
+```
+
+### 4. Créer les fichiers de configuration
+
+Revenir à la racine du projet :
+
+```bash
+cd ..
+touch .gitignore .env.example docker-compose.yml README.md
+```
+
+Créer une copie locale de la configuration :
 
 ```bash
 cp .env.example .env
 ```
 
-Ne jamais commit le fichier `.env`. Il peut contenir des mots de passe.
+Le fichier `.env` ne doit jamais être envoyé sur Git.
+
+### 5. Démarrer MySQL avec Docker
+
+Après avoir installé Docker Desktop ou Docker Engine, vérifier Docker :
+
+```bash
+docker --version
+docker compose version
+```
+
+Construire et démarrer les services :
+
+```bash
+docker compose up --build
+```
+
+Si tu veux récupérer le terminal immédiatement :
+
+```bash
+docker compose up --build -d
+```
+
+Voir les conteneurs actifs :
+
+```bash
+docker compose ps
+```
+
+Voir les logs :
+
+```bash
+docker compose logs -f
+```
+
+Arrêter les services :
+
+```bash
+docker compose down
+```
+
+### 6. Vérifier que tout fonctionne
+
+Tester l'API :
+
+```bash
+curl http://localhost:8000/api/health
+```
+
+Tester la documentation :
+
+```text
+http://localhost:8000/docs
+```
+
+Vérifier l'état de Docker :
+
+```bash
+docker compose ps
+```
+
+Un projet correctement initialisé doit contenir au minimum :
+
+```text
+frontend/
+backend/app/
+backend/tests/
+backend/requirements.txt
+.env.example
+docker-compose.yml
+.gitignore
+README.md
+```
 
 ## Variables d'environnement
 
